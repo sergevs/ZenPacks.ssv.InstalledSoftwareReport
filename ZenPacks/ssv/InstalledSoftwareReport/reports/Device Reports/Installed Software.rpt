@@ -1,4 +1,30 @@
-<tal:block tal:define="
+<tal:block 
+    tal:condition="exists: request/doExport"
+    tal:define="
+    tableName string:installedpackagesreport;
+    tm here/ZenTableManager;
+    tableState python:tm.getTableState(tableName, sortedSence='asc', sortedHeader='title');
+
+    sts python:tm.setReqTableState;
+    deviceClass python:sts(tableName, 'deviceClass', '/Server');
+    deviceGroup python:sts(tableName, 'deviceGroup', '/');
+    deviceSystem python:sts(tableName, 'deviceSystem', '/');
+    deviceLocation python:sts(tableName, 'deviceLocation', '/');
+    packagesFilter python:sts(tableName, 'packagesFilter','kernel|glibc');
+    matchedSoftware python:sts(tableName,'matchedSoftware','');
+    objects python:here.ReportServer.plugin('ExportInstalledSoftware', tableState);
+    exportFields python:['hostname', 'devclass', 'system', 'group', 'location', 'software'];
+
+    batch python:here.ZenTableManager.getBatch(tableName, objects );">
+
+    <tal:block metal:use-macro="here/reportMacros/macros/exportableReport">
+        <tal:block metal:fill-slot="report"/>
+    </tal:block>
+</tal:block>
+
+<tal:block
+    tal:condition="not: exists: request/doExport"
+    tal:define="
     tableName string:installedpackagesreport;
     tm here/ZenTableManager;
     tableState python:tm.getTableState(tableName, sortedSence='asc', sortedHeader='title');
