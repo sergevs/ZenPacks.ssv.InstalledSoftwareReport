@@ -2,7 +2,6 @@ import Globals
 from Globals import InitializeClass
 from AccessControl import ClassSecurityInfo
 from Products.ZenReports import Utils
-from Products.ZenModel.ZenModelItem import ZenModelItem
 
 import re
 import logging
@@ -17,6 +16,7 @@ class Installed:
     self.group = device.group
     self.location = device.location
     self.software = software.id
+    self.installdate = software.getInstallDate()
 
 
 class RDevice:
@@ -24,10 +24,9 @@ class RDevice:
   security.setDefaultAccess('allow')
 
   def __init__(self, device, reFilter):
-    self.titleOrId=device.titleOrId()
+    self.titleOrId = device.titleOrId()
     self.filteredSoftware = [e for e in device.os.software() if reFilter.match(e.id)]
-    self.software = None
-    self.kernel = device.getOSProductName().replace('Linux ','')
+    self.kernel = device.getOSProductName().replace('Linux ', '')
     self.collected = device.getSnmpLastCollectionString()
     self.deviceLink = device.getDeviceLink()
     self.devclass = device.getDeviceClassName()
@@ -51,9 +50,9 @@ class ExportInstalledSoftware:
     deviceSystem = args.get('deviceSystem', '/') or '/' 
     deviceLocation = args.get('deviceLocation', '/') or '/' 
     packagesFilter = args.get('packagesFilter', '') or '' 
-    matchedSoftware = args.get('matchedSoftware','') or ''
+    matchedSoftware = args.get('matchedSoftware', '') or ''
 
-    reFilter=re.compile(packagesFilter)
+    reFilter = re.compile(packagesFilter)
 
     for d in dmd.Devices.getOrganizer(deviceClass).getSubDevices(): 
       if not d.monitorDevice(): continue 
@@ -91,5 +90,4 @@ class ExportInstalledSoftware:
     # values from the filter widget
     for device in self.filteredDevices(dmd, args):
       for software in device.filteredSoftware:
-        #yield Utils.Record(hostname=device.titleOrId, softId=software.id)
         yield Installed(device, software)
