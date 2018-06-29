@@ -50,7 +50,7 @@ To install in development mode, find the repository on github and use the *Downl
 (right-hand margin) to download a tgz file and unpack it to a local directory, say,
 /code/ZenPacks .  Install from /code/ZenPacks with::
   zenpack --link --install ZenPacks.ssv.InstalledSoftwareReport
-  Restart zenoss after installation.
+  Restart zenhub and zopectl
 
 After installation, zenhub and zopectl (zenwebserver on RM), will need restarting on Zenoss 4; the zenhub and zope services will need restarting on Zenoss 5+ .
 
@@ -81,7 +81,8 @@ See the screenshots directory.
 
 .. External References Below. Nothing Below This Line Should Be Rendered
 
-.. _Latest Package for Python 2.7: https://github.com/jcurry/ZenPacks.community.simple1/blob/master/dist/ZenPacks.community.simple1-1.0.0-py2.7.egg?raw=true
+.. _Latest Package for Python 2.7: https://github.com/jcurry/ZenPacks.ssv.InstalledSoftwareReport/blob/master/dist/ZenPacks.ssv.InstalledSoftwareReport-1.1-py2.7.egg?raw=true
+
 
 Acknowledgements
 ================
