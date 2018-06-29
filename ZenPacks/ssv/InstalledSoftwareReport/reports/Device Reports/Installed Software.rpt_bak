@@ -14,7 +14,6 @@
     objects python:here.ReportServer.plugin('InstalledSoftware', tableState);
  
     batch python:here.ZenTableManager.getBatch(tableName, objects );">
-    exportFields python:['titleOrId', 'filteredSoftware'];
 
 <tal:block metal:use-macro="here/reportMacros/macros/exportableReport">
   <tal:block metal:fill-slot="report">
@@ -105,10 +104,11 @@
                 <tal:block metal:fill-slot="zentablecontents">              
                   <tr>
                     <th tal:replace="structure python:tm.getTableHeader(
-                          tableName,'softwarePackage','Software Package')"/>
+                          tableName,'package','Software Package')"/>
                     <th tal:replace="structure python:tm.getTableHeader(
-                          tableName,'installedDate','Installed Date')"/>
-                  </tr>
+                          tableName,'instDate','Installed Date')"/>
+                  <tr>
+
                   <tal:block tal:repeat="s python:list(r.device.filteredSoftware)">      
                     <tr class="tablevalues">
                       <td class="tablevalues" style="width:50%;" tal:content="python:s.id"/>  
