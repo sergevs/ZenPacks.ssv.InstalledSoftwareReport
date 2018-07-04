@@ -58,7 +58,6 @@ After installation, zenhub and zopectl (zenwebserver on RM), will need restartin
 Limitations and Troubleshooting
 ===============================
 
-The export button does not work.
 
 
 
@@ -72,6 +71,8 @@ Change History
      - Titles for the individual device reports
      - Ability to search on partial device match
      - Tested on Zenoss 4.2.5 SUP732 and Zenoss 5.2.1  
+* 1.2
+   - Updated with export fix contributed by komeda-shinji
 
 Screenshots
 ===========
@@ -81,7 +82,7 @@ See the screenshots directory.
 
 .. External References Below. Nothing Below This Line Should Be Rendered
 
-.. _Latest Package for Python 2.7: https://github.com/jcurry/ZenPacks.ssv.InstalledSoftwareReport/blob/master/dist/ZenPacks.ssv.InstalledSoftwareReport-1.1-py2.7.egg?raw=true
+.. _Latest Package for Python 2.7: https://github.com/jcurry/ZenPacks.ssv.InstalledSoftwareReport/blob/master/dist/ZenPacks.ssv.InstalledSoftwareReport-1.2-py2.7.egg?raw=true
 
 
 Acknowledgements
