@@ -13,8 +13,8 @@
     matchedSoftware python:sts(tableName,'matchedSoftware','');
     objects python:here.ReportServer.plugin('InstalledSoftware', tableState);
  
-    batch python:here.ZenTableManager.getBatch(tableName, objects );">
-    exportFields python:['titleOrId', 'filteredSoftware'];
+    batch python:here.ZenTableManager.getBatch(tableName, objects );
+    exportFields python:['titleOrId', 'filteredSoftware'];">
 
 <tal:block metal:use-macro="here/reportMacros/macros/exportableReport">
   <tal:block metal:fill-slot="report">
