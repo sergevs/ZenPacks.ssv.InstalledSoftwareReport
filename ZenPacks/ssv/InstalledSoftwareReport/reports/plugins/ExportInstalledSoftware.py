@@ -45,6 +45,7 @@ class ExportInstalledSoftware:
   """
 
   def filteredDevices(self, dmd, args):
+    deviceBox = args.get('deviceBox', '') or ''
     deviceClass = args.get('deviceClass', '/') or '/' 
     deviceGroup = args.get('deviceGroup', '/') or '/' 
     deviceSystem = args.get('deviceSystem', '/') or '/' 
@@ -75,9 +76,16 @@ class ExportInstalledSoftware:
       if len(dLocation) == 0: dLocation='/'
       if re.match(deviceLocation,dLocation): locationMatched = True
       if groupMatched and systemMatched and locationMatched: 
-        devForReport = RDevice(d,reFilter) 
-        if matchedSoftware == 'on' and len(devForReport.filteredSoftware) < 1 : continue  
-        yield devForReport
+        # Now check the device name
+        if deviceBox:
+            if d.titleOrId().find(deviceBox) != -1:
+              devForReport = RDevice(d,reFilter)
+              if matchedSoftware == 'on' and len(devForReport.filteredSoftware) < 1 : continue
+              yield devForReport
+        else:
+              devForReport = RDevice(d,reFilter)
+              if matchedSoftware == 'on' and len(devForReport.filteredSoftware) < 1 : continue
+              yield devForReport
 
   def run(self, dmd, args):
     """

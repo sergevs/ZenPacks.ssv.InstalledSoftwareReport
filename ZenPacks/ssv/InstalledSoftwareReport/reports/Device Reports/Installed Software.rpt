@@ -5,6 +5,7 @@
     tableState python:tm.getTableState(tableName, sortedSence='asc', sortedHeader='title');
 
     sts python:tm.setReqTableState;
+    deviceBox python:sts(tableName, 'deviceBox', '');
     deviceClass python:sts(tableName, 'deviceClass', '/Server');
     deviceGroup python:sts(tableName, 'deviceGroup', '/');
     deviceSystem python:sts(tableName, 'deviceSystem', '/');
@@ -29,7 +30,6 @@
     tal:condition="not: exists: request/doExport"
     tal:define="
     objects python:here.ReportServer.plugin('InstalledSoftware', tableState);
- 
     batch python:here.ZenTableManager.getBatch(tableName, objects);">
 
 <tal:block metal:use-macro="here/reportMacros/macros/exportableReport">
@@ -45,6 +45,12 @@
           <tal:block tal:define=" tabletitle string:Installed Software">
             <tal:block metal:use-macro="here/zenuimacros/macros/zentable">
               <tal:block metal:fill-slot="zentablecontents">
+                <tr>
+                  <td class="tableheader" rowspan="1">Device:</td>
+                  <td class="tablevalues" rowspan="1">
+                    <input class="tablevalues" name="deviceBox" tal:attributes="value deviceBox"/>
+                  <td>
+                <tr>
 
                 <tr>
                   <td class="tableheader">Device Class:</td>
@@ -78,7 +84,7 @@
                 </tr>
 
                 <tr>
-                  <td class="tableheader">Sytem:</td>
+                  <td class="tableheader">System:</td>
                   <td class="tablevalues">
                     <select class="tablevalues" name="deviceSystem"
                       tal:define="orgs python:here.getDmdRoot('Systems').getOrganizerNames();">
@@ -113,6 +119,12 @@
               (r.device.titleOrId, r.device.kernel, r.device.collected)">
               <tal:block metal:use-macro="here/zenuimacros/macros/zentable">
                 <tal:block metal:fill-slot="zentablecontents">              
+                  <tr>
+                    <th tal:replace="structure python:tm.getTableHeader(
+                          tableName,'softwarePackage','Software Package')"/>
+                    <th tal:replace="structure python:tm.getTableHeader(
+                          tableName,'installedDate','Installed Date')"/>
+                  </tr>
                   <tal:block tal:repeat="s python:list(r.device.filteredSoftware)">      
                     <tr class="tablevalues">
                       <td class="tablevalues" style="width:50%;" tal:content="python:s.id"/>  
